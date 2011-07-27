@@ -1,7 +1,7 @@
 jibenakka
 =============
 
-This is a set of basic classes I started using for my akka projects. They will
+This is a set of basic classes I started using for my [akka](http://akka.io/) projects. They will
 get better over time as I do more akka projects.
 
 The most useful part of this project is probably the example akka java code.
