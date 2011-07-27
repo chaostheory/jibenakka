@@ -28,7 +28,7 @@ import org.apache.commons.io.FileUtils;
  *
  *
  *
- * @author brlee
+ * @author blee
  *
  */
 public class WCMapReduceApp extends MapReduceSupervisorImpl {
