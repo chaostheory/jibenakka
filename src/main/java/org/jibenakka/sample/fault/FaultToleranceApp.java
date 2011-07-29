@@ -17,16 +17,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.jibenakka.sample.untyped;
+package org.jibenakka.sample.fault;
+
+import org.jibenakka.message.StartWork;
+import org.jibenakka.supervisor.BaseRootSupervisorImpl;
+
+import akka.actor.ActorRef;
 
 /**
  * Hello world!
  *
  */
-public class App
+public class FaultToleranceApp extends BaseRootSupervisorImpl
 {
     public static void main( String[] args )
     {
-        Master master = new Master();
+        ActorRef master = actorOf(FaultToleranceApp.class);
+        master.sendOneWay(new StartWork());
     }
+
+	@Override
+	public void onReceive(Object message) throws Exception {
+		if (message instanceof StartWork) {
+
+		} else {
+			throw new IllegalArgumentException("Unknown message: " + message);
+		}
+	}
 }

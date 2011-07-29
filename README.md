@@ -1,17 +1,18 @@
 jibenakka
 =============
 
-This is a set of basic classes I started using for my [akka](http://akka.io/) projects. They will
-get better over time as I do more akka projects.
-
-The most useful part of this project is probably the example akka java code.
-Currently I've included a word counting Map Reduce sample app using a 
-combination of akka Actors and Futures. In the near future I will add a simple
-supervisor hierarchy fault tolerance example.
+This is a set of basic Java examples for [akka](http://akka.io/).
 
 Word Count Map Reduce
 -----------
-Detailed description coming soon...
+This sample app peforms map reduce to count words in files using a combination 
+of akka Actors and Futures.
+
+
+
+Supervisor Hierarchy Fault Tolerance
+-----------
+This sample app demonstrates creating a hierarchy of Actors.
 
 
 Misc

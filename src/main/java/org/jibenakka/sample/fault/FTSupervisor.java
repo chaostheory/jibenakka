@@ -17,8 +17,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package org.jibenakka.message;
+package org.jibenakka.sample.fault;
 
-public class ReduceWorkMessageImpl {
+import org.jibenakka.message.StartWork;
+import org.jibenakka.supervisor.BaseSupervisorImpl;
 
+public class FTSupervisor extends BaseSupervisorImpl {
+
+	@Override
+	public void onReceive(Object message) throws Exception {
+		if (message instanceof StartWork) {
+
+		} else {
+			throw new IllegalArgumentException("Unknown message: " + message);
+		}
+	}
 }
