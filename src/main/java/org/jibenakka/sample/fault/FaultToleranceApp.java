@@ -19,6 +19,9 @@
 
 package org.jibenakka.sample.fault;
 
+import static akka.actor.Actors.actorOf;
+import static akka.actor.Actors.registry;
+
 import org.jibenakka.message.StartWork;
 import org.jibenakka.supervisor.BaseRootSupervisorImpl;
 
@@ -35,6 +38,10 @@ public class FaultToleranceApp extends BaseRootSupervisorImpl
         ActorRef master = actorOf(FaultToleranceApp.class);
         master.sendOneWay(new StartWork());
     }
+    
+    public FaultToleranceApp(){
+    	setupWorkers(10, aClass);
+    }
 
 	@Override
 	public void onReceive(Object message) throws Exception {
@@ -43,5 +50,11 @@ public class FaultToleranceApp extends BaseRootSupervisorImpl
 		} else {
 			throw new IllegalArgumentException("Unknown message: " + message);
 		}
+	}
+
+	@Override
+	public ActorRef route(Object arg0) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
