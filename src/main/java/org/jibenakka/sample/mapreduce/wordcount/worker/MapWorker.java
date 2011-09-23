@@ -92,6 +92,6 @@ public class MapWorker extends UntypedActor {
 				countResult.put(wordsToCount[i], 1);
 			}
 		}
-		getContext().channel().sendOneWay(countResult);
+		getContext().channel().tell(countResult);
 	}
 }

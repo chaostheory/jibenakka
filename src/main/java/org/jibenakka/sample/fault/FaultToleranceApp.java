@@ -20,7 +20,6 @@
 package org.jibenakka.sample.fault;
 
 import static akka.actor.Actors.actorOf;
-import static akka.actor.Actors.registry;
 
 import org.jibenakka.message.StartWork;
 import org.jibenakka.supervisor.BaseRootSupervisorImpl;
@@ -36,11 +35,11 @@ public class FaultToleranceApp extends BaseRootSupervisorImpl
     public static void main( String[] args )
     {
         ActorRef master = actorOf(FaultToleranceApp.class);
-        master.sendOneWay(new StartWork());
+        master.tell(new StartWork());
     }
     
     public FaultToleranceApp(){
-    	setupWorkers(10, aClass);
+    	setupWorkers(10, TempWorker.class);
     }
 
 	@Override
@@ -57,4 +56,6 @@ public class FaultToleranceApp extends BaseRootSupervisorImpl
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
 }
