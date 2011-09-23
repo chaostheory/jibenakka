@@ -31,13 +31,13 @@ import akka.dispatch.Future;
  *
  */
 public class ReduceSetWork {
-	private final LinkedList<Future<Object>> reduceWorkList;
+	private final LinkedList<Future<Map<String, Integer>>> reduceWorkList;
 
-	public ReduceSetWork(LinkedList<Future<Object>> reduceWorkList){
+	public ReduceSetWork(LinkedList<Future<Map<String, Integer>>> reduceWorkList){
 		this.reduceWorkList = reduceWorkList;
 	}
 
-	public LinkedList<Future<Object>> getReduceList() {
+	public LinkedList<Future<Map<String, Integer>>> getReduceList() {
 		return reduceWorkList;
 	}
 }

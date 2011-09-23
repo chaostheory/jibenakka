@@ -20,15 +20,16 @@
 package org.jibenakka.sample.mapreduce.wordcount.messages;
 
 import java.util.LinkedList;
+import java.util.Map;
 
 public class ReduceMapSetWork {
-	private final LinkedList<Object> mapResults;
+	private final LinkedList<Map<String, Integer>> mapResults;
 
-	public ReduceMapSetWork(LinkedList<Object> mapResults){
+	public ReduceMapSetWork(LinkedList<Map<String, Integer>> mapResults){
 		this.mapResults = mapResults;
 	}
 
-	public LinkedList<Object> getMapResults() {
+	public LinkedList<Map<String, Integer>> getMapResults() {
 		return mapResults;
 	}
 }

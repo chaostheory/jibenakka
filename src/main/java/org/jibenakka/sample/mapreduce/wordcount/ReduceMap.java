@@ -1,22 +1,3 @@
-/**
- * Copyright (c) 2011 Brian Lee
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this 
- * software and associated documentation files (the "Software"), to deal in the Software 
- * without restriction, including without limitation the rights to use, copy, modify, merge, 
- * publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons 
- * to whom the Software is furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all copies or 
- * substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
- * BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
- * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-
 package org.jibenakka.sample.mapreduce.wordcount;
 
 import static akka.dispatch.Futures.sequence;
@@ -38,7 +19,7 @@ import org.jibenakka.sample.mapreduce.wordcount.messages.ReduceSetWork;
  */
 public class ReduceMap
 		implements
-		Function<Iterable<Map<String, Integer>>, Future<Iterable<Map<String, Integer>>>> {
+		Function<LinkedList<Map<String, Integer>>, Future<LinkedList<Map<String, Integer>>>> {
 
 	private ActorRef workRouter;
 	private ActorRef owner;
@@ -63,13 +44,12 @@ public class ReduceMap
 	 *
 	 * @see akka.japi.Function#apply(java.lang.Object)
 	 */
-	public Future<Iterable<Map<String, Integer>>> apply(
+	public Future<LinkedList<Map<String, Integer>>> apply(
 			LinkedList<Map<String, Integer>> mapsToReduce) {
 
 		LinkedList<Future<Map<String, Integer>>> reduceWorkList = partitionIntialMap(mapsToReduce);
 		LinkedList<Future<Map<String, Integer>>> result = partitionMap(reduceWorkList);
-		//Future<LinkedList<Map<String, Integer>>> finalResult = sequence(result);
-		Future<Iterable<Map<String, Integer>>> finalResult = sequence(result);
+		Future<LinkedList<Map<String, Integer>>> finalResult = sequence(result);
 
 		return finalResult;
 	}
@@ -79,10 +59,10 @@ public class ReduceMap
 	 * @param mapsToReduce
 	 * @return
 	 */
-	protected LinkedList<Future<Object>> partitionIntialMap(
-			LinkedList<Object> mapsToReduce) {
-		LinkedList<Future<Object>> reduceWorkList = new LinkedList<Future<Object>>();
-		LinkedList<Object> chunkWorkList = new LinkedList<Object>();
+	protected LinkedList<Future<Map<String, Integer>>> partitionIntialMap(
+			LinkedList<Map<String, Integer>> mapsToReduce) {
+		LinkedList<Future<Map<String, Integer>>> reduceWorkList = new LinkedList<Future<Map<String, Integer>>>();
+		LinkedList<Map<String, Integer>> chunkWorkList = new LinkedList<Map<String, Integer>>();
 
 		while (!mapsToReduce.isEmpty()
 				|| (mapsToReduce.isEmpty() && !chunkWorkList.isEmpty())) {
@@ -90,12 +70,12 @@ public class ReduceMap
 			if ((chunkWorkList.size() >= this.chunkSize)
 					|| mapsToReduce.isEmpty()) {
 				// the work router is essentially a partitioner
-				Future<Object> futureReduceResult = this.workRouter
-						.ask(new ReduceMapSetWork(
+				Future<Map<String, Integer>> futureReduceResult = this.workRouter
+						.sendRequestReplyFuture(new ReduceMapSetWork(
 								chunkWorkList), 30000, this.owner);
 
 				reduceWorkList.add(futureReduceResult);
-				chunkWorkList = new LinkedList<Object>();
+				chunkWorkList = new LinkedList<Map<String, Integer>>();
 			}
 
 			if (!mapsToReduce.isEmpty()) {
@@ -110,25 +90,26 @@ public class ReduceMap
 	 * @param futureMapsList
 	 * @return
 	 */
-	private LinkedList<Future<Object>> partitionMap(
-			LinkedList<Future<Object>> futureMapsList) {
+	private LinkedList<Future<Map<String, Integer>>> partitionMap(
+			LinkedList<Future<Map<String, Integer>>> futureMapsList) {
 		if (futureMapsList.size() < 2) {
 			return futureMapsList;
 		}
 
-		LinkedList<Future<Object>> results = new LinkedList<Future<Object>>();
-		LinkedList<Future<Object>> chunkWorkList = new LinkedList<Future<Object>>();
+		LinkedList<Future<Map<String, Integer>>> results = new LinkedList<Future<Map<String, Integer>>>();
+		LinkedList<Future<Map<String, Integer>>> chunkWorkList = new LinkedList<Future<Map<String, Integer>>>();
 
 		while (!futureMapsList.isEmpty()
 				|| (futureMapsList.isEmpty() && !chunkWorkList.isEmpty())) {
 
 			if ((chunkWorkList.size() >= this.chunkSize)
 					|| (futureMapsList.isEmpty())) {
-				Future<Object> newFuture = this.workRouter
-						.ask(new ReduceSetWork(chunkWorkList), 30000,
+				Future<Map<String, Integer>> newFuture = this.workRouter
+						.sendRequestReplyFuture(
+								new ReduceSetWork(chunkWorkList), 30000,
 								this.owner);
 				results.add(newFuture);
-				chunkWorkList = new LinkedList<Future<Object>>();
+				chunkWorkList = new LinkedList<Future<Map<String, Integer>>>();
 			}
 
 			if (!futureMapsList.isEmpty()) {
