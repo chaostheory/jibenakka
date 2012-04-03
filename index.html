@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Jibenakka : A basic set of akka helper java classes and examples such as map reduce" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Jibenakka</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/chaostheory/jibenakka">Fork Me on GitHub</a>
+
+          <h1 id="project_title">Jibenakka</h1>
+          <h2 id="project_tagline">A basic set of akka helper java classes and examples such as map reduce</h2>
+
+          <section id="downloads">
+            <a class="zip_download_link" href="https://github.com/chaostheory/jibenakka/zipball/master">Download this project as a .zip file</a>
+            <a class="tar_download_link" href="https://github.com/chaostheory/jibenakka/tarball/master">Download this project as a tar.gz file</a>
+          </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h2>Getting Started</h2>
+
+<p>Jibenakka is just a set of basic Java examples for <a href="http://akka.io/">akka</a>. Currently it is only compatible with akka 1.2. I will update it to use akka 2.0 in the future.</p>
+
+<p>You will need to install <a href="http://maven.apache.org/">Apache Maven</a>. If you're using
+Eclipse, it is recommended that you install the <a href="http://www.eclipse.org/m2e/">m2e plugin</a>. 
+Once you've properly installed and configured Maven, you can then
+use it to easily download all of jibenakka's needed dependencies.</p>
+
+<p>The actual sample code can be found in the <code>sample</code> package, while supporting classes 
+are located in the adjoining packages. Currently there are the following samples:</p>
+
+<h2>Word Count Map Reduce</h2>
+
+<p>This sample app peforms map reduce to count words in files using a combination 
+of akka Actors and Futures. It can be found under the <code>mapreduce</code> package within
+the <code>sample</code> package.</p>
+
+<h2>Supervisor Hierarchy Fault Tolerance</h2>
+
+<p>This sample app demonstrates creating a hierarchy of Actors. This is currently a 
+work in progress. It can be found under the <code>fault</code> package within
+the <code>sample</code> package.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Jibenakka maintained by <a href="https://github.com/chaostheory">chaostheory</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("<script type="text/javascript">    var _gaq = _gaq || [];   _gaq.push(['_setAccount', 'UA-30551534-2']);   _gaq.push(['_trackPageview']);    (function() {     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);   })();  </script>");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+
+  </body>
+</html>
