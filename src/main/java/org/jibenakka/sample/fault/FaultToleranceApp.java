@@ -40,7 +40,7 @@ public class FaultToleranceApp extends BaseRootSupervisorImpl
     }
     
     public FaultToleranceApp(){
-    	setupWorkers(10, aClass);
+    	setupWorkers(10, TempWorker.class);
     }
 
 	@Override
